@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import cors from 'cors';
 import {connect as connectDB} from "./config/mongoose";
 import { router as AuthRoutes } from "./routes/auth-routes";
+import {config} from "./config";
 
 const app: Application = express();
 const PORT = process.env.PORT || 3000;
@@ -21,6 +22,6 @@ app.get('/', (req: Request, res: Response, next: NextFunction) => {
 
 app.use('/api/auth', AuthRoutes)
 
-app.listen(PORT, () => {
+app.listen(config.port, () => {
     console.log(`App is running on PORT ${PORT}`);
-})
+});

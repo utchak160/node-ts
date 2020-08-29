@@ -1,6 +1,7 @@
 import {NextFunction, Request, Response} from "express";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import {config} from "../config";
 const User = require('../models/user.model');
 
 
@@ -31,7 +32,7 @@ export const registerUser = async (req: Request, res: Response, next: NextFuncti
                 email: email
             }
         }
-        jwt.sign(payload, 'vhejak$%hver^%76fyvgubh', {expiresIn: '1 year'}, ((err, token) => {
+        jwt.sign(payload, config.jwtSecretKey, {expiresIn: '1 year'}, ((err, token) => {
             if (err) {
                 return res.status(400).json({errors: [{msg: 'Token not generated'}]});
             }
@@ -62,7 +63,7 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
                 email: email
             }
         }
-        jwt.sign(payload, 'vhejak$%hver^%76fyvgubh', {expiresIn: '1 year'}, ((err, token) => {
+        jwt.sign(payload, config.jwtSecretKey, {expiresIn: '1 year'}, ((err, token) => {
             if (err) {
                 return res.status(400).json({errors: [{msg: 'Token not generated'}]});
             }
