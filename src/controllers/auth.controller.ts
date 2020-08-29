@@ -6,7 +6,7 @@ const User = require('../models/user.model');
 
 
 export const registerUser = async (req: Request, res: Response, next: NextFunction) => {
-    const {username, email, password} = req.body;
+    const {username, email, password, role} = req.body;
 
     try {
         const existingUser = await User.findOne({email});
@@ -18,7 +18,8 @@ export const registerUser = async (req: Request, res: Response, next: NextFuncti
         const user = new User({
             username,
             email,
-            password
+            password,
+            role
         });
         const salt = await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(password, salt);
