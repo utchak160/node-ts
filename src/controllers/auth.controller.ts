@@ -32,7 +32,7 @@ export const registerUser = async (req: Request, res: Response, next: NextFuncti
                 email: email
             }
         }
-        jwt.sign(payload, config.jwtSecretKey, {expiresIn: '1 year'}, ((err, token) => {
+        jwt.sign(payload, 'nrnvneiog%$56euvei#%', {expiresIn: '1 year'}, ((err, token) => {
             if (err) {
                 return res.status(400).json({errors: [{msg: 'Token not generated'}]});
             }
@@ -63,7 +63,7 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
                 email: email
             }
         }
-        jwt.sign(payload, config.jwtSecretKey, {expiresIn: '1 year'}, ((err, token) => {
+        jwt.sign(payload, 'nrnvneiog%$56euvei#%', {expiresIn: '1 year'}, ((err, token) => {
             if (err) {
                 return res.status(400).json({errors: [{msg: 'Token not generated'}]});
             }
