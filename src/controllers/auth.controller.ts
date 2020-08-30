@@ -1,6 +1,7 @@
 import {NextFunction, Request, Response} from "express";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import {sendWelcomeMail} from "../services/sendgrid.service";
 import {config} from "../config";
 const User = require('../models/user.model');
 
@@ -23,7 +24,6 @@ export const registerUser = async (req: Request, res: Response, next: NextFuncti
         });
         const salt = await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(password, salt);
-        console.log(user.password);
 
         await user.save();
 
@@ -33,12 +33,14 @@ export const registerUser = async (req: Request, res: Response, next: NextFuncti
                 email: email
             }
         }
-        jwt.sign(payload, 'nrnvneiog%$56euvei#%', {expiresIn: '1 year'}, ((err, token) => {
+        // @ts-ignore
+        jwt.sign(payload, config.jwtSecretKey, {expiresIn: '1 year'}, ((err, token) => {
             if (err) {
                 return res.status(400).json({errors: [{msg: 'Token not generated'}]});
             }
             res.status(201).send({token});
         }));
+        await sendWelcomeMail(username, email);
     } catch (e) {
         res.status(500).json({errors: [{msg: 'Server Error'}]});
         console.log(e);
@@ -64,7 +66,8 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
                 email: email
             }
         }
-        jwt.sign(payload, 'nrnvneiog%$56euvei#%', {expiresIn: '1 year'}, ((err, token) => {
+        // @ts-ignore
+        jwt.sign(payload, config.jwtSecretKey, {expiresIn: '1 year'}, ((err, token) => {
             if (err) {
                 return res.status(400).json({errors: [{msg: 'Token not generated'}]});
             }

@@ -1,4 +1,8 @@
 {
+  "env": {
+    "browser": true,
+    "es6": true
+  },
   "root": true,
   "parser": "@typescript-eslint/parser",
   "plugins": [
@@ -13,6 +17,11 @@
   ],
   "rules": {
     "no-console": 1,              //Means Warning
-    "prettier/prettier": 2       // Means Error
+    "prettier/prettier": 2,       // Means Error
+    "quotes": [
+      "error",
+      "double"
+    ],
+    "prefer-const": "warn"
   }
 }

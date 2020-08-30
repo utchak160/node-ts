@@ -10,5 +10,6 @@ if (!environment) {
 export const config = {
     port: process.env.PORT || 3000,
     jwtSecretKey: process.env.JWT_SECRET_KEY,
-    mongoURI: process.env.MONGO_DB_URI
+    mongoURI: process.env.MONGO_DB_URI,
+    sendGridApi: process.env.SENDGRID_API
 }

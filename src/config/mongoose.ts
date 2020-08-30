@@ -1,8 +1,10 @@
 import mongoose from 'mongoose';
+import {config} from "./index";
 
 export const connect = async () => {
     try {
-        await mongoose.connect("mongodb+srv://taskapp:@Lucknow160@cluster0-jfyyd.mongodb.net/node-ts?retryWrites=true&w=majority", {
+        // @ts-ignore
+        await mongoose.connect(config.mongoURI, {
             useUnifiedTopology: true,
             useNewUrlParser: true,
             useFindAndModify: false,
