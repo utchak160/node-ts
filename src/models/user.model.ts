@@ -1,7 +1,7 @@
-import mongoose from 'mongoose';
+import mongoose, {Schema} from 'mongoose';
 import {Role} from "../enums/role.enum";
 
-const userSchema = new mongoose.Schema({
+const userSchema: Schema = new mongoose.Schema({
     username: {
         type: String,
         unique: true,
@@ -18,6 +18,12 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: Role
+    },
+    googleId: {
+        type: String
+    },
+    facebookId: {
+        type: String
     }
 })
 

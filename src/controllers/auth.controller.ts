@@ -79,3 +79,8 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
     }
 }
 
+export const facebookCallback = async (req: Request, res: Response, next: NextFunction) => {
+    console.log(req.body);
+    res.redirect('/', 200);
+};
+

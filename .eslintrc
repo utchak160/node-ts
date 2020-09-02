@@ -22,6 +22,8 @@
       "error",
       "double"
     ],
-    "prefer-const": "warn"
+    "prefer-const": "warn",
+    "no-unused-vars": "error",
+    "no-empty": "warn"
   }
 }
