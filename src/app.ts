@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import cors from 'cors';
 import {connect as connectDB} from "./config/mongoose";
 import {router as AuthRoutes} from "./routes/auth-routes";
+import {router as TodoRoutes} from './routes/todo-routes';
 import {config} from "./config";
 import dotenv from 'dotenv';
 import passport from "passport";
@@ -78,7 +79,8 @@ app.get('/', (req: Request, res: Response, next: NextFunction) => {
     });
 })
 
-app.use('/api/auth', AuthRoutes)
+app.use('/api/auth', AuthRoutes);
+app.use('/api/todo', TodoRoutes);
 
 app.listen(config.port, () => {
     console.log(`App is running on PORT ${PORT}`);

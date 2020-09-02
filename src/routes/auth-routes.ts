@@ -22,7 +22,6 @@ router.get(
     '/facebook',
     passport.authenticate('facebook', {
         session: false,
-
     }),
 );
 
