@@ -1,4 +1,4 @@
-import mongoose, {Schema} from "mongoose";
+import mongoose, {Schema, SchemaType} from "mongoose";
 
 const todoSchema: Schema = new mongoose.Schema({
     description: {
@@ -12,3 +12,8 @@ const todoSchema: Schema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('todo', todoSchema)
+
+
+export class Todo extends Schema<Todo> {
+
+}
