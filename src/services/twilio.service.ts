@@ -9,10 +9,18 @@ class TwilioService {
         });
     }
 
-    async sendMessage(message: string, phoneNumber: string) {
+    async sendTextMessage(message: string, phoneNumber: string) {
         return this._twilioClient.messages.create({
             body: message,
             from: '+19472073121',
+            to: phoneNumber
+        });
+    }
+
+    async sendWhatsappMessage(message: string, phoneNumber: string) {
+        return this._twilioClient.messages.create({
+            body: message,
+            from: 'whatsapp:+14155238886',
             to: phoneNumber
         });
     }

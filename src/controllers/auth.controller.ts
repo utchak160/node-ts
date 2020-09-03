@@ -73,8 +73,6 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
             }
             res.status(201).send({token});
         }));
-        // const callData = await twilioService.call('123456', '+917565053977');
-        // console.log(callData);
     } catch (e) {
         res.status(500).json({errors: [{msg: 'Server Error'}]});
         console.log(e);
