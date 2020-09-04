@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import {sendWelcomeMail} from "../services/sendgrid.service";
 import {config} from "../config";
+import passport from "passport";
 const User = require('../models/user.model');
 
 
@@ -79,8 +80,41 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
     }
 }
 
+export const facebookAuth = async (req: Request, res: Response, next: NextFunction) => {
+    const { redirectTo } = req.query;
+    const state = JSON.stringify({redirectTo});
+    const authenticate = passport.authenticate(
+        'facebook',
+        {
+            scope: ['emails', 'id', 'username', 'displayName'],
+            state,
+            session: true
+        }
+    );
+    authenticate(req, res, next);
+}
+
 export const facebookCallback = async (req: Request, res: Response, next: NextFunction) => {
     console.log(req.body);
-    res.redirect('/', 200);
+    try {
+        const payload = {
+            user: {
+                id: req.body.user.id,
+                email: req.body.user.email
+            }
+        }
+        console.log(payload);
+        // @ts-ignore
+        jwt.sign(payload, config.jwtSecretKey, {expiresIn: '1 year'}, ((err, token) => {
+            if (err) {
+                return res.status(400).json({errors: [{msg: 'Token not generated'}]});
+            }
+            res.status(201).send({token});
+            res.redirect('http://localhost:4200/todo-list');
+        }));
+    } catch (e) {
+        res.status(500).json({errors: [{msg: 'Server Error'}]});
+        console.log(e);
+    }
 };
 

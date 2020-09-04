@@ -4,7 +4,6 @@ import {Role} from "../enums/role.enum";
 const userSchema: Schema = new mongoose.Schema({
     username: {
         type: String,
-        unique: true,
         required: true
     },
     email: {
@@ -14,7 +13,6 @@ const userSchema: Schema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
     },
     role: {
         type: Role

@@ -1,7 +1,7 @@
 import express, {Router} from 'express';
 import {AuthValidator} from "../validators/auth.validator";
 import {errorHandler} from "../handlers/error.handler";
-import {facebookCallback, loginUser, registerUser} from "../controllers/auth.controller";
+import {facebookAuth, facebookCallback, loginUser, registerUser} from "../controllers/auth.controller";
 import passport from "passport";
 
 export const router: Router = express.Router();
@@ -20,19 +20,18 @@ router.post(
 
 router.get(
     '/facebook',
-    passport.authenticate('facebook', {
-        session: false,
-    }),
+    facebookAuth
 );
 
 router.get(
     '/facebook/callback',
-    passport.authenticate('facebook',
+    passport.authenticate(
+        'facebook',
         {
-            failureRedirect: '/login',
-            successRedirect: '/',
-            failureFlash: 'Authentication Failed',
-            successFlash: 'Authentication Success',
-        }),
+            failureRedirect: 'http://localhost:4200/login?status=402',
+            failureFlash: 'Facebook Auth failed',
+            successFlash: 'Facebook Auth success'
+        }
+    ),
     facebookCallback
 );
