@@ -35,7 +35,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 
-
+require('./config/facebook');
 passport.serializeUser((user, done) => {
     done(null, user)
 });
