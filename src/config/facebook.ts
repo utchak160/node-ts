@@ -2,7 +2,7 @@ import {Strategy, StrategyOption} from 'passport-facebook'
 import passport from "passport";
 const User = require('../models/user.model');
 
-const facebookStrategy: StrategyOption = {
+export const facebookStrategy: StrategyOption = {
     // @ts-ignore
     clientID: process.env.FACEBOOK_APP_ID,
     // @ts-ignore
