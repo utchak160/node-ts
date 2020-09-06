@@ -6,9 +6,9 @@ import {router as AuthRoutes} from "./routes/auth-routes";
 import {router as TodoRoutes} from './routes/todo-routes';
 import {config} from "./config";
 import dotenv from 'dotenv';
-import passport from "passport";
-
-const User = require('./models/user.model')
+// import passport from "passport";
+//
+// const User = require('./models/user.model')
 
 const app: Application = express();
 const PORT = process.env.PORT || 3000;
@@ -33,12 +33,12 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-app.use(passport.initialize());
+// app.use(passport.initialize());
 
-require('./config/facebook');
-passport.serializeUser((user, done) => {
-    done(null, user)
-});
+// require('./config/facebook');
+// passport.serializeUser((user, done) => {
+//     done(null, user)
+// });
 
 // passport.deserializeUser((id, done) => {
 //     User.findById(id).then((user: any) => {
